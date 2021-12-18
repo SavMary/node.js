@@ -1,4 +1,3 @@
-let sha3_256 = require('js-sha3').sha3_256;
 let crypto = require('crypto');
 
 let parrams = [],
@@ -21,7 +20,7 @@ class Hash{
 
     createSha3(){
         const id = crypto.createHash('sha256').digest("hex");
-        const sha3 = sha3_256(pcMove + id);
+        const sha3 = crypto.createHash('sha256').update(pcMove + id).digest("hex");
         console.log(`HMAC: \n${sha3}`);
         return id;
     }    
