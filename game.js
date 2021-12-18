@@ -8,6 +8,8 @@ let parrams = [],
  userMove = null
  isValid = false;
 
+
+
 for(let i = 2; i < process.argv.length; i++){
     parrams.push(process.argv[i]);
 }
@@ -24,7 +26,7 @@ class Hash{
         return id;
     }    
 }
-
+let halfArr = Math.floor(parrams.length/2);
 class CalculateWin {
     constructor(computerMoveIndex, userMoveIndex){
         this.computerMoveIndex = computerMoveIndex;
@@ -35,16 +37,16 @@ class CalculateWin {
         if(this.computerMoveIndex == this.userMoveIndex){
             console.log('Draw');
         } else if(this.computerMoveIndex < this.userMoveIndex){
-            if(this.userMoveIndex <= this.computerMoveIndex + Math.floor(parrams.length/2)){
-                console.log('Computer win!');
+            if(this.userMoveIndex <= this.computerMoveIndex + halfArr){
+                console.log('You loose!');
             } else {
                 console.log('You win!');
             }
         } else {
-            if(this.computerMoveIndex <= this.userMoveIndex + Math.floor(parrams.length/2)){
+            if(this.computerMoveIndex <= this.userMoveIndex + halfArr){
                 console.log('You win!');
             } else {
-                console.log('Computer win!');
+                console.log('You loose!');
             }
         }
     }
@@ -95,13 +97,19 @@ if(isValid){
 }
 
 function validateParams(){
-    if(process.argv.length < 5){
+    if(parrams.length < 3){
         console.log('Please enter at least 3 parameters.\nExampe: rock paper scissors lizard spock');
-    } else if(process.argv.length % 2 == 0) {
+    } else if(parrams.length % 2 == 0) {
         console.log('Please enter an uneven number of parameters.\nExampe: rock paper scissors lizard spock');
+    } else if(checkIfDuplicateExists(parrams)){
+        console.log('Parameters cannot be repeated.\nExampe: rock paper scissors lizard spock');
     } else {
         isValid = true;
     }
+}
+
+function checkIfDuplicateExists(w){
+    return new Set(w).size !== w.length 
 }
 
 function pcMoves(){
